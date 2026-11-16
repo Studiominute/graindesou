@@ -57,7 +57,7 @@ def entete(chemin, racine):
         f'          <li><a href="{racine}{c}"{actuel(c)}><strong>{t}</strong><span>{d}</span></a></li>' for c, t, d in OUTILS
     )
     return f"""<header class="entete">
-  <div class="cadre barre">
+  <div class="cadre entete-barre">
     <a class="marque" href="{racine}"><img src="{racine}assets/sou.svg" alt="" width="40" height="40">Grain de Sou</a>
     <button class="menu-bouton" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
     <nav class="menu" id="menu" aria-label="Menu principal">
@@ -273,6 +273,19 @@ page("petites-depenses/", "Le vrai prix de tes petites dépenses | Grain de Sou"
 """, scripts=("petites-depenses.js",))
 
 # ---------------------------------------------------------------- Budget
+def groupe(cle, titre, aide, lignes, ajout):
+    rangs = "".join(
+        f'''<div class="ligne-saisie"><input class="seul libelle" value="{l}" aria-label="Nom de la ligne" maxlength="40"><div class="unite"><input class="montant" inputmode="decimal" value="{m}" placeholder="0" aria-label="Montant"><span>€</span></div><button type="button" class="retirer" aria-label="Retirer cette ligne">×</button></div>'''
+        for l, m in lignes)
+    return f'''<fieldset class="groupe" data-groupe="{cle}">
+      <legend>{titre}</legend>
+      <p class="aide-groupe">{aide}</p>
+      <div class="lignes">{rangs}</div>
+      <button type="button" class="ajouter">{ajout}</button>
+      <p class="sous-total">Total : <b data-total="{cle}">0 €</b></p>
+    </fieldset>'''
+
+
 champ = lambda i, l, aide="": f'<div class="champ"><label for="{i}">{l}</label><div class="unite"><input id="{i}" inputmode="decimal" placeholder="0"><span>€</span></div>{f"<span class=aide>{aide}</span>" if aide else ""}</div>'
 page("budget/", "Ton budget 50/30/20 | Grain de Sou",
      "Calcule ton budget avec la méthode 50/30/20 : la part de ton salaire pour l'essentiel, les envies et l'épargne, puis compare avec tes vraies dépenses.",
@@ -282,44 +295,16 @@ page("budget/", "Ton budget 50/30/20 | Grain de Sou",
 </div></section>
 <div class="cadre atelier">
   <form class="saisie" id="form-budget">
-    <fieldset>
-      <legend>Ton revenu</legend>
-      <div class="champs">
-        <div class="champ"><label for="revenu">Revenu net par mois</label><div class="unite"><input id="revenu" inputmode="decimal" value="2 000"><span>€</span></div>
-          <span class="aide">Ce qui arrive sur ton compte, après impôt prélevé à la source. Pour un couple, additionne les deux.</span></div>
-      </div>
-    </fieldset>
-    <details class="plus" open>
-      <summary>Compare avec tes vraies dépenses (facultatif)</summary>
-      <fieldset>
-        <legend>L'essentiel, chaque mois</legend>
-        <div class="champs">
-          {champ("logement", "Loyer ou crédit + charges")}
-          {champ("courses", "Courses")}
-          {champ("transport", "Transport", "Carburant, assurance auto, abonnement transports")}
-          {champ("factures", "Factures", "Énergie, eau, internet, téléphone, assurance habitation")}
-          {champ("autres-besoins", "Autres dépenses obligatoires", "Santé, crèche, cantine, crédit conso…")}
-        </div>
-      </fieldset>
-      <fieldset>
-        <legend>Les envies, chaque mois</legend>
-        <div class="champs">
-          {champ("sorties", "Sorties et restaurants")}
-          {champ("shopping", "Shopping et loisirs")}
-          {champ("abonnements", "Abonnements plaisir", "Streaming, salle de sport, jeux…")}
-          {champ("vacances", "Vacances", "Ton budget annuel divisé par 12")}
-        </div>
-      </fieldset>
-      <fieldset>
-        <legend>L'épargne, chaque mois</legend>
-        <div class="champs">{champ("epargne", "Mis de côté", "Livret, virement automatique, placements")}</div>
-      </fieldset>
-    </details>
+    {groupe("revenus", "Tes revenus, chaque mois", "Ce qui arrive sur ton compte, après impôt prélevé à la source. Ajoute une ligne par source (salaire, prime, loyer perçu, aide…).", [("Salaire", "2 000")], "＋ Ajouter un revenu")}
+    {groupe("besoins", "L'essentiel, chaque mois", "Ce que tu dois payer quoi qu'il arrive.", [("Loyer ou crédit + charges", ""), ("Courses", ""), ("Transport", ""), ("Factures (énergie, internet, téléphone)", "")], "＋ Ajouter une dépense")}
+    {groupe("envies", "Les envies, chaque mois", "Ce qui rend la vie agréable et que tu peux ajuster.", [("Sorties et restaurants", ""), ("Shopping et loisirs", ""), ("Abonnements", ""), ("Vacances (budget annuel ÷ 12)", "")], "＋ Ajouter une envie")}
+    {groupe("epargne", "L'épargne, chaque mois", "Livret, virement automatique, placements.", [("Mis de côté", "")], "＋ Ajouter une épargne")}
+    <p class="petit">Les dépenses sont facultatives : sans elles, le ticket et le graphique montrent le repère 50/30/20.</p>
   </form>
 
   <aside class="ticket" aria-live="polite" aria-label="Résultat">
     <div class="ticket-tete"><strong>TICKET DE TON BUDGET</strong><span>Méthode 50/30/20, par mois</span></div>
-    <div class="ligne"><span>Revenu</span><b id="t-revenu"></b></div>
+    <div class="ligne"><span>Revenus</span><b id="t-revenu"></b></div>
     <div class="ligne sep"><span>🏠 L'essentiel (50 %)</span><b id="t-besoins"></b></div>
     <div class="ligne"><span>🎉 Les envies (30 %)</span><b id="t-envies"></b></div>
     <div class="ligne"><span>🐷 L'épargne (20 %)</span><b id="t-epargne"></b></div>
@@ -337,6 +322,14 @@ page("budget/", "Ton budget 50/30/20 | Grain de Sou",
     <p class="pied main">Merci de ta visite ! Sou</p>
   </aside>
 </div>
+<section class="cadre graphique-zone" aria-labelledby="titre-flux">
+  <figure class="graphique">
+    <h2 id="titre-flux">Où va ton argent chaque mois</h2>
+    <p class="petit" id="flux-legende"></p>
+    <div id="flux" class="flux"></div>
+    <figcaption class="visually-hidden" id="flux-texte"></figcaption>
+  </figure>
+</section>
 <section class="cadre explications"><div class="lecture">
   <h2>La méthode 50/30/20 en bref</h2>
   <ul>
