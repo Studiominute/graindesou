@@ -25,6 +25,14 @@ OUTILS = [
 ]
 
 
+import hashlib
+
+
+def version(fichier):
+    """Empreinte du fichier : change à chaque modification, pour que les navigateurs rechargent la nouvelle version."""
+    return hashlib.sha1((SITE / "assets" / fichier).read_bytes()).hexdigest()[:8]
+
+
 def tete(titre, description, chemin, racine):
     return f"""<!DOCTYPE html>
 <html lang="fr">
@@ -44,7 +52,7 @@ def tete(titre, description, chemin, racine):
 <link rel="icon" href="{racine}assets/sou.svg" type="image/svg+xml">
 <link rel="preload" href="{racine}assets/fonts/montserrat-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{racine}assets/fonts/caveat-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="{racine}assets/style.css">
+<link rel="stylesheet" href="{racine}assets/style.css?v={version("style.css")}">
 </head>
 <body>
 """
@@ -114,7 +122,7 @@ def suivre():
 
 def pied(racine, scripts=()):
     reseaux = " ".join(f'<a href="{u}" rel="noopener">{n}</a>' for n, u in RESEAUX)
-    js = "\n".join(f'<script src="{racine}assets/{s}"></script>' for s in ("commun.js", *scripts))
+    js = "\n".join(f'<script src="{racine}assets/{s}?v={version(s)}"></script>' for s in ("commun.js", *scripts))
     return f"""<footer class="pied-page">
   <div class="cadre">
     <div>
