@@ -2,8 +2,10 @@
 
 const TAUX_LIVRET_A = 1.7; // % par an depuis le 1er août 2026 (à mettre à jour à chaque changement)
 
-function simulerDepense(montant, frequence, annees, tauxPct) {
-  const parAn = frequence === "jour" ? montant * 365 : frequence === "semaine" ? montant * 52 : montant * 12;
+const FOIS_PAR_AN = { jour: 365, semaine: 52, mois: 12, an: 1 };
+
+function simulerDepense(montant, frequence, annees, tauxPct, fois = 1) {
+  const parAn = montant * fois * FOIS_PAR_AN[frequence];
   const parMois = parAn / 12;
   const total = parAn * annees;
   const r = tauxPct / 100;
@@ -24,10 +26,18 @@ if (typeof document !== "undefined") {
 
   const boutons = document.querySelectorAll(".raccourcis button");
   boutons.forEach(b => b.addEventListener("click", () => {
-    document.getElementById("montant").value = b.dataset.montant;
-    document.getElementById("quoi").value = b.dataset.quoi;
-    document.querySelector(`input[name=frequence][value=${b.dataset.frequence}]`).checked = true;
     boutons.forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+    document.getElementById("fois").value = "1";
+    if (b.dataset.perso) {
+      /* Ta propre dépense : champs vidés, prêts à remplir */
+      document.getElementById("quoi").value = "";
+      document.getElementById("montant").value = "";
+      document.getElementById("quoi").focus();
+    } else {
+      document.getElementById("montant").value = b.dataset.montant;
+      document.getElementById("quoi").value = b.dataset.quoi;
+      document.querySelector(`input[name=frequence][value=${b.dataset.frequence}]`).checked = true;
+    }
     form.dispatchEvent(new Event("change"));
   }));
 
@@ -36,10 +46,12 @@ if (typeof document !== "undefined") {
     const frequence = document.querySelector("input[name=frequence]:checked").value;
     const annees = Math.min(50, Math.max(1, Math.round(GDS.lire("annees", 10))));
     const taux = Math.max(0, GDS.lire("taux"));
+    const fois = Math.min(100, Math.max(1, Math.round(GDS.lire("fois", 1))));
     const quoi = document.getElementById("quoi").value.trim() || "Ta dépense";
-    const s = simulerDepense(montant, frequence, annees, taux);
+    const s = simulerDepense(montant, frequence, annees, taux, fois);
     const E = GDS.euros;
-    const motFreq = { jour: "par jour", semaine: "par semaine", mois: "par mois" }[frequence];
+    const periode = { jour: "par jour", semaine: "par semaine", mois: "par mois", an: "par an" }[frequence];
+    const motFreq = (fois > 1 ? `${fois} fois ` : "") + periode;
 
     GDS.ecrire("t-quoi", `${quoi} : ${E(montant)} ${motFreq}`);
     GDS.ecrire("t-mois", E(s.parMois));

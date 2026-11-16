@@ -103,7 +103,7 @@ def suivre():
     return f"""<section class="inscription" aria-labelledby="titre-suivre">
   <div class="cadre">
     <div>
-      <h2 id="titre-suivre">Une vidéo chaque jour, de nouveaux outils au fil des vidéos</h2>
+      <h2 id="titre-suivre">Au moins une vidéo chaque jour, et de nouveaux outils au fil des vidéos</h2>
       <p class="promesse">Suis Grain de Sou pour découvrir ce qui se cache derrière ton argent, et les prochains calculateurs dès leur sortie.</p>
     </div>
     <nav class="liens-reseaux" aria-label="Grain de Sou sur les réseaux">{liens}</nav>
@@ -190,8 +190,8 @@ page("", "Grain de Sou : les calculateurs gratuits",
     <span class="bouton petit-bouton">Comparer les deux options</span>
   </a>
   <a class="outil-ligne bientot" href="formations/">
-    <div><h2>Les formations arrivent</h2><p>Apprendre la comptabilité simplement, pour gérer ses comptes ou réussir ses examens.</p></div>
-    <span class="bouton petit-bouton secondaire">Découvrir le programme</span>
+    <div><h2>Formations en préparation</h2><p>Apprendre la comptabilité simplement, pour gérer ses comptes ou réussir ses études.</p></div>
+    <span class="bouton petit-bouton secondaire">Voir les thèmes prévus</span>
   </a>
 </div>
 <section class="cadre" style="padding-top:2.5rem"><div class="lecture">
@@ -216,6 +216,7 @@ page("petites-depenses/", "Le vrai prix de tes petites dépenses | Grain de Sou"
       <button type="button" data-quoi="Repas livré" data-montant="18" data-frequence="semaine" aria-pressed="false">🛵 Repas livré 18 € par semaine</button>
       <button type="button" data-quoi="Snack au distributeur" data-montant="1,80" data-frequence="jour" aria-pressed="false">🍫 Snack 1,80 € par jour</button>
       <button type="button" data-quoi="Paquet de cigarettes" data-montant="13" data-frequence="jour" aria-pressed="false">🚬 Paquet 13 € par jour</button>
+      <button type="button" class="ajout" data-perso="1" aria-pressed="false">＋ Ma dépense</button>
     </div>
     <fieldset>
       <legend>Ta dépense</legend>
@@ -226,10 +227,14 @@ page("petites-depenses/", "Le vrai prix de tes petites dépenses | Grain de Sou"
     </fieldset>
     <fieldset>
       <legend>Elle revient…</legend>
-      <div class="choix">
-        <label><input type="radio" name="frequence" value="jour" checked> chaque jour</label>
-        <label><input type="radio" name="frequence" value="semaine"> chaque semaine</label>
-        <label><input type="radio" name="frequence" value="mois"> chaque mois</label>
+      <div class="frequence">
+        <div class="champ"><label for="fois">Combien de fois ?</label><div class="unite petite"><input id="fois" inputmode="numeric" value="1"><span>fois</span></div></div>
+        <div class="choix" role="radiogroup" aria-label="Par période">
+          <label><input type="radio" name="frequence" value="jour" checked> par jour</label>
+          <label><input type="radio" name="frequence" value="semaine"> par semaine</label>
+          <label><input type="radio" name="frequence" value="mois"> par mois</label>
+          <label><input type="radio" name="frequence" value="an"> par an</label>
+        </div>
       </div>
     </fieldset>
     <fieldset>
@@ -481,27 +486,24 @@ if INSCRIPTION_OUVERTE: page("inscription-confirmee/", "Inscription confirmée |
 """, avec_inscription=False)
 
 # ---------------------------------------------------------------- Formations (teasing)
-page("formations/", "Les formations Grain de Sou arrivent bientôt", "Bientôt sur Grain de Sou : des formations pour apprendre la comptabilité simplement, pour les indépendants, les propriétaires de SCI et les étudiants.",
+page("formations/", "Formations en préparation | Grain de Sou", "Des formations pour apprendre la comptabilité simplement sont en préparation sur Grain de Sou, pour les indépendants, les propriétaires de SCI ou de LMNP et les étudiants.",
      """<section class="outil-haut"><div class="cadre">
-  <p class="note-main clair">En préparation…</p>
-  <h1>Les formations Grain de Sou arrivent bientôt</h1>
-  <p>Apprendre la comptabilité simplement : des explications claires, des exemples chiffrés et des outils prêts à servir.</p>
+  <h1>Formations en préparation</h1>
+  <p>Des formations pour apprendre la comptabilité simplement, avec des explications claires et des exemples chiffrés. Voici les thèmes prévus.</p>
 </div></section>
 <div class="cadre formations">
   <article class="carte-formation">
-    <span class="pastille">Bientôt</span>
-    <h2>Pour les indépendants et les propriétaires de SCI</h2>
-    <p>Tenir ses comptes, comprendre ses impôts et remplir ses déclarations (dont la 2072 d'une SCI) avec méthode et sérénité.</p>
+    <h2>Pour les indépendants et les propriétaires</h2>
+    <p>Tenir ses comptes, comprendre ses impôts et remplir ses déclarations avec méthode. Par exemple : la 2072 d'une SCI, la location meublée en LMNP, les débuts en micro-entreprise.</p>
   </article>
   <article class="carte-formation">
-    <span class="pastille">Bientôt</span>
-    <h2>Pour les étudiants en DCG et DSCG</h2>
-    <p>Méthodes, fiches et cas pratiques pour réviser efficacement et aborder chaque épreuve avec confiance.</p>
+    <h2>Pour les étudiants</h2>
+    <p>Réviser la comptabilité, la gestion ou le droit avec des méthodes, des fiches et des cas pratiques : BTS CG, BUT GEA, DCG, DSCG, licences, ou toute formation qui contient des cours de compta.</p>
   </article>
 </div>
 <section class="cadre explications"><div class="lecture">
   <h2>Ton avis compte</h2>
-  <p>Dis en commentaire, sous une vidéo de Grain de Sou, ce que tu aimerais apprendre en premier : les formations se construisent avec tes questions.</p>
+  <p>Dis-nous ce que tu aimerais apprendre en premier, en commentaire sous une vidéo ou en message privé sur les réseaux de Grain de Sou : les formations se construisent avec tes questions.</p>
 </div></section>
 """)
 

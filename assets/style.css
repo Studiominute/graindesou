@@ -203,6 +203,10 @@ select.seul:focus, input.seul:focus { outline: none; border-color: var(--or-fonc
 }
 .raccourcis button:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--encre); }
 .raccourcis button[aria-pressed="true"] { background: var(--or); }
+.raccourcis button.ajout { border-style: dashed; box-shadow: none; }
+.raccourcis button.ajout[aria-pressed="true"] { border-style: solid; box-shadow: 2px 2px 0 var(--encre); }
+.frequence { display: flex; flex-wrap: wrap; align-items: flex-end; gap: .8rem 1.2rem; }
+.unite.petite { width: 9rem; }
 
 .choix { display: flex; flex-wrap: wrap; gap: .5rem; }
 .choix label { display: inline-flex; align-items: center; gap: .4rem; border: 2px solid var(--champ); border-radius: var(--main-levee-bouton); padding: .45rem .75rem; font-weight: 700; font-size: .92rem; cursor: pointer; background: #fff; }
