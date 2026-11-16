@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ton budget 50/30/20 | Grain de Sou</title>
+<meta name="description" content="Calcule ton budget avec la méthode 50/30/20 : la part de ton salaire pour l'essentiel, les envies et l'épargne, puis compare avec tes vraies dépenses.">
+<link rel="canonical" href="https://graindesou.studiominute.fr/budget/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Grain de Sou">
+<meta property="og:title" content="Ton budget 50/30/20 | Grain de Sou">
+<meta property="og:description" content="Calcule ton budget avec la méthode 50/30/20 : la part de ton salaire pour l'essentiel, les envies et l'épargne, puis compare avec tes vraies dépenses.">
+<meta property="og:url" content="https://graindesou.studiominute.fr/budget/">
+<meta name="theme-color" content="#0B3D2E">
+<link rel="icon" href="../assets/sou.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/montserrat-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="entete">
+  <div class="cadre">
+    <a class="marque" href="../"><img src="../assets/sou.svg" alt="" width="38" height="38">Grain de Sou</a>
+    <nav class="nav" aria-label="Outils">
+      <a href="../petites-depenses/">Petites dépenses</a>
+      <a href="../budget/" aria-current="page">Budget 50/30/20</a>
+      <a href="../sci-ir-ou-is/">SCI IR ou IS</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="outil-haut"><div class="cadre">
+  <h1>Ton budget 50/30/20</h1>
+  <p>Un repère simple : la moitié pour l'essentiel, 30 % pour les envies, 20 % pour l'épargne. Entre ton revenu, puis tes vraies dépenses si tu veux comparer.</p>
+</div></section>
+<div class="cadre atelier">
+  <form class="saisie" id="form-budget">
+    <fieldset>
+      <legend>Ton revenu</legend>
+      <div class="champs">
+        <div class="champ"><label for="revenu">Revenu net par mois</label><div class="unite"><input id="revenu" inputmode="decimal" value="2 000"><span>€</span></div>
+          <span class="aide">Ce qui arrive sur ton compte, après impôt prélevé à la source. Pour un couple, additionne les deux.</span></div>
+      </div>
+    </fieldset>
+    <details class="plus" open>
+      <summary>Compare avec tes vraies dépenses (facultatif)</summary>
+      <fieldset>
+        <legend>L'essentiel, chaque mois</legend>
+        <div class="champs">
+          <div class="champ"><label for="logement">Loyer ou crédit + charges</label><div class="unite"><input id="logement" inputmode="decimal" placeholder="0"><span>€</span></div></div>
+          <div class="champ"><label for="courses">Courses</label><div class="unite"><input id="courses" inputmode="decimal" placeholder="0"><span>€</span></div></div>
+          <div class="champ"><label for="transport">Transport</label><div class="unite"><input id="transport" inputmode="decimal" placeholder="0"><span>€</span></div><span class=aide>Carburant, assurance auto, abonnement transports</span></div>
+          <div class="champ"><label for="factures">Factures</label><div class="unite"><input id="factures" inputmode="decimal" placeholder="0"><span>€</span></div><span class=aide>Énergie, eau, internet, téléphone, assurance habitation</span></div>
+          <div class="champ"><label for="autres-besoins">Autres dépenses obligatoires</label><div class="unite"><input id="autres-besoins" inputmode="decimal" placeholder="0"><span>€</span></div><span class=aide>Santé, crèche, cantine, crédit conso…</span></div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Les envies, chaque mois</legend>
+        <div class="champs">
+          <div class="champ"><label for="sorties">Sorties et restaurants</label><div class="unite"><input id="sorties" inputmode="decimal" placeholder="0"><span>€</span></div></div>
+          <div class="champ"><label for="shopping">Shopping et loisirs</label><div class="unite"><input id="shopping" inputmode="decimal" placeholder="0"><span>€</span></div></div>
+          <div class="champ"><label for="abonnements">Abonnements plaisir</label><div class="unite"><input id="abonnements" inputmode="decimal" placeholder="0"><span>€</span></div><span class=aide>Streaming, salle de sport, jeux…</span></div>
+          <div class="champ"><label for="vacances">Vacances</label><div class="unite"><input id="vacances" inputmode="decimal" placeholder="0"><span>€</span></div><span class=aide>Ton budget annuel divisé par 12</span></div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>L'épargne, chaque mois</legend>
+        <div class="champs"><div class="champ"><label for="epargne">Mis de côté</label><div class="unite"><input id="epargne" inputmode="decimal" placeholder="0"><span>€</span></div><span class=aide>Livret, virement automatique, placements</span></div></div>
+      </fieldset>
+    </details>
+  </form>
+
+  <aside class="ticket" aria-live="polite" aria-label="Résultat">
+    <div class="ticket-tete"><strong>TICKET DE TON BUDGET</strong><span>Méthode 50/30/20, par mois</span></div>
+    <div class="ligne"><span>Revenu</span><b id="t-revenu"></b></div>
+    <div class="ligne sep"><span>🏠 L'essentiel (50 %)</span><b id="t-besoins"></b></div>
+    <div class="ligne"><span>🎉 Les envies (30 %)</span><b id="t-envies"></b></div>
+    <div class="ligne"><span>🐷 L'épargne (20 %)</span><b id="t-epargne"></b></div>
+    <div class="total"><span class="etiquette">Épargne visée sur un an</span><span class="montant" id="t-epargne-an"></span></div>
+    <div id="comparaison" hidden>
+      <div class="barres" aria-label="Tes vraies dépenses comparées aux repères (trait noir)">
+        <div class="barre"><div class="haut"><span>L'essentiel</span><span id="r-besoins"></span></div><div class="piste"><div class="rempli" id="b-besoins"></div><div class="repere"></div></div></div>
+        <div class="barre"><div class="haut"><span>Les envies</span><span id="r-envies"></span></div><div class="piste"><div class="rempli or" id="b-envies"></div><div class="repere"></div></div></div>
+        <div class="barre"><div class="haut"><span>L'épargne</span><span id="r-epargne"></span></div><div class="piste"><div class="rempli" id="b-epargne"></div><div class="repere"></div></div></div>
+      </div>
+      <p class="petit">Le trait noir marque le repère 50/30/20.</p>
+      <div class="total"><span class="etiquette" id="t-reste-etiquette"></span><span class="montant" id="t-reste"></span></div>
+      <ul class="phrase" id="conseils"></ul>
+    </div>
+    <p class="pied">Merci de ta visite 💰 Grain de Sou</p>
+  </aside>
+</div>
+<section class="cadre explications"><div class="lecture">
+  <h2>La méthode 50/30/20 en bref</h2>
+  <ul>
+    <li><strong>50 % pour l'essentiel</strong> : ce que tu dois payer quoi qu'il arrive (logement, courses, transport pour aller travailler, factures, assurances).</li>
+    <li><strong>30 % pour les envies</strong> : ce qui rend la vie agréable et que tu peux ajuster (sorties, shopping, abonnements, vacances).</li>
+    <li><strong>20 % pour l'épargne</strong> : l'épargne de précaution d'abord (souvent 3 à 6 mois de dépenses), puis tes projets.</li>
+  </ul>
+  <p>C'est un repère, pas une règle. Dans une grande ville avec un loyer élevé, un partage 60/20/20 est souvent plus réaliste. L'important, c'est de savoir où va chaque euro et de garder une part pour l'épargne, même petite.</p>
+  <p class="petit">Astuce : programme un virement automatique vers ton épargne le jour où ton salaire arrive. Ce qui part en premier ne se dépense pas.</p>
+</div></section>
+<section class="inscription" aria-labelledby="titre-suivre">
+  <div class="cadre">
+    <div>
+      <h2 id="titre-suivre">Une vidéo chaque jour, de nouveaux outils au fil des vidéos</h2>
+      <p class="promesse">Suis Grain de Sou pour découvrir ce qui se cache derrière ton argent, et les prochains calculateurs dès leur sortie.</p>
+    </div>
+    <nav class="liens-reseaux" aria-label="Grain de Sou sur les réseaux"><a href="https://www.youtube.com/@graindesou" rel="noopener">YouTube</a><a href="https://www.instagram.com/graindesou" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@graindesou" rel="noopener">TikTok</a><a href="https://www.facebook.com/profile.php?id=1434997603028314" rel="noopener">Facebook</a></nav>
+  </div>
+</section>
+</main>
+<footer class="pied-page">
+  <div class="cadre">
+    <div>
+      <p><strong>Grain de Sou</strong>, ce qui se cache derrière ton argent.<br>Contenu pédagogique, pas un conseil financier personnalisé.</p>
+      <nav aria-label="Réseaux"><a href="https://www.youtube.com/@graindesou" rel="noopener">YouTube</a> <a href="https://www.instagram.com/graindesou" rel="noopener">Instagram</a> <a href="https://www.tiktok.com/@graindesou" rel="noopener">TikTok</a> <a href="https://www.facebook.com/profile.php?id=1434997603028314" rel="noopener">Facebook</a></nav>
+    </div>
+    <nav aria-label="Informations">
+      <a href="../mentions-legales/">Mentions légales</a>
+      <a href="../confidentialite/">Confidentialité</a>
+      <a href="mailto:graindesou@studiominute.fr">Contact</a>
+    </nav>
+  </div>
+</footer>
+<script src="../assets/commun.js"></script>
+<script src="../assets/budget.js"></script>
+</body>
+</html>

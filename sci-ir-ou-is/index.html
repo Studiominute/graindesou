@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SCI à l'IR ou à l'IS : le comparatif 2026 | Grain de Sou</title>
+<meta name="description" content="Compare les impôts d'une SCI à l'impôt sur le revenu et d'une SCI à l'impôt sur les sociétés, année par année et à la revente, avec les règles 2026.">
+<link rel="canonical" href="https://graindesou.studiominute.fr/sci-ir-ou-is/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Grain de Sou">
+<meta property="og:title" content="SCI à l'IR ou à l'IS : le comparatif 2026 | Grain de Sou">
+<meta property="og:description" content="Compare les impôts d'une SCI à l'impôt sur le revenu et d'une SCI à l'impôt sur les sociétés, année par année et à la revente, avec les règles 2026.">
+<meta property="og:url" content="https://graindesou.studiominute.fr/sci-ir-ou-is/">
+<meta name="theme-color" content="#0B3D2E">
+<link rel="icon" href="../assets/sou.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/montserrat-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="entete">
+  <div class="cadre">
+    <a class="marque" href="../"><img src="../assets/sou.svg" alt="" width="38" height="38">Grain de Sou</a>
+    <nav class="nav" aria-label="Outils">
+      <a href="../petites-depenses/">Petites dépenses</a>
+      <a href="../budget/">Budget 50/30/20</a>
+      <a href="../sci-ir-ou-is/" aria-current="page">SCI IR ou IS</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="outil-haut"><div class="cadre">
+  <h1>SCI à l'IR ou à l'IS ?</h1>
+  <p>Les impôts des deux options sur toute la durée du projet, revente comprise, avec les règles 2026. Change les chiffres : le ticket se met à jour.</p>
+</div></section>
+<div class="cadre atelier">
+  <form class="saisie" id="form-sci">
+    <fieldset>
+      <legend>Le bien</legend>
+      <div class="champs">
+        <div class="champ"><label for="prix">Prix d'achat</label><div class="unite"><input id="prix" inputmode="decimal" value="200 000"><span>€</span></div><span class="aide">Sans les frais de notaire ni d'agence.</span></div>
+        <div class="champ"><label for="frais">Frais d'achat</label><div class="unite"><input id="frais" inputmode="decimal" value="8"><span>% du prix</span></div><span class="aide">Notaire et agence : souvent 7 à 8 % dans l'ancien.</span></div>
+        <div class="champ"><label for="terrain">Part du terrain</label><div class="unite"><input id="terrain" inputmode="decimal" value="15"><span>% du prix</span></div><span class="aide">Le terrain ne s'amortit pas à l'IS. Souvent 10 à 20 %.</span></div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Les loyers et les charges</legend>
+      <div class="champs">
+        <div class="champ"><label for="loyer">Loyer</label><div class="unite"><input id="loyer" inputmode="decimal" value="900"><span>€ / mois</span></div><span class="aide">Hors charges, location vide.</span></div>
+        <div class="champ"><label for="charges">Charges du propriétaire</label><div class="unite"><input id="charges" inputmode="decimal" value="2 000"><span>€ / an</span></div><span class="aide">Taxe foncière, assurance, copropriété non récupérable, entretien.</span></div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>L'emprunt</legend>
+      <div class="champs">
+        <div class="champ"><label for="emprunt">Montant emprunté</label><div class="unite"><input id="emprunt" inputmode="decimal" value="180 000"><span>€</span></div><span class="aide">Mets 0 pour un achat sans crédit.</span></div>
+        <div class="champ"><label for="taux">Taux</label><div class="unite"><input id="taux" inputmode="decimal" value="3,5"><span>%</span></div></div>
+        <div class="champ"><label for="duree-emprunt">Durée</label><div class="unite"><input id="duree-emprunt" inputmode="decimal" value="20"><span>ans</span></div></div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Les associés</legend>
+      <div class="champ" style="margin-bottom:1rem"><span class="titre" id="tmi-titre">Tranche d'imposition des associés</span>
+        <div class="choix" role="radiogroup" aria-labelledby="tmi-titre"><label><input type="radio" name="tmi" value="0"> 0 %</label><label><input type="radio" name="tmi" value="11"> 11 %</label><label><input type="radio" name="tmi" value="30" checked> 30 %</label><label><input type="radio" name="tmi" value="41"> 41 %</label><label><input type="radio" name="tmi" value="45"> 45 %</label></div>
+        <span class="aide">Le taux marginal indiqué sur l'avis d'impôt. Le simulateur prend le même pour tous les associés.</span></div>
+      <div class="champs"><div class="champ"><label for="associes">Nombre de foyers associés</label><div class="unite"><input id="associes" inputmode="decimal" value="2"><span>foyers</span></div><span class="aide">Parts égales. Compte un couple marié comme un seul foyer.</span></div></div>
+    </fieldset>
+    <fieldset>
+      <legend>La durée et la revente</legend>
+      <div class="champs">
+        <div class="champ"><label for="duree">Durée de détention</label><div class="unite"><input id="duree" inputmode="decimal" value="15"><span>ans</span></div><span class="aide">Entre 1 et 30 ans.</span></div>
+        <div class="champ"><label for="hausse">Hausse du prix du bien</label><div class="unite"><input id="hausse" inputmode="decimal" value="1,5"><span>% par an</span></div></div>
+      </div>
+      <label class="case" style="margin-top:1rem"><input type="checkbox" id="revente" checked> Inclure la revente à la fin</label>
+    </fieldset>
+    <details class="plus">
+      <summary>Réglages de la SCI à l'IS</summary>
+      <div class="champs">
+        <div class="champ"><label for="amort">Durée d'amortissement du bâtiment</label><div class="unite"><input id="amort" inputmode="decimal" value="30"><span>ans</span></div><span class="aide">Souvent entre 25 et 40 ans.</span></div>
+        <div class="champ"><label for="compta">Comptabilité en plus à l'IS</label><div class="unite"><input id="compta" inputmode="decimal" value="1 000"><span>€ / an</span></div><span class="aide">Bilan et liasse fiscale, souvent confiés à un expert-comptable.</span></div>
+      </div>
+      <label class="case" style="margin-top:1rem"><input type="checkbox" id="verser" checked> Les bénéfices sont versés aux associés chaque année</label>
+    </details>
+  </form>
+
+  <aside class="ticket" aria-live="polite" aria-label="Résultat">
+    <div class="ticket-tete"><strong>TICKET SCI : IR OU IS</strong><span id="t-duree"></span></div>
+    <div class="ligne"><span><strong>SCI à l'IR</strong></span><b></b></div>
+    <div class="ligne"><span>Impôt et prélèvements sur les loyers</span><b id="t-ir-annuel"></b></div>
+    <div class="ligne"><span>Impôt sur la plus-value</span><b id="t-ir-pv"></b></div>
+    <div class="ligne"><span>Total</span><b id="t-ir-total"></b></div>
+    <div class="ligne sep"><span><strong>SCI à l'IS</strong></span><b></b></div>
+    <div class="ligne"><span>Impôt sur les sociétés</span><b id="t-is-impot"></b></div>
+    <div class="ligne"><span>Impôt sur les sommes versées (31,4 %)</span><b id="t-is-pfu"></b></div>
+    <div class="ligne"><span>Comptabilité en plus</span><b id="t-is-compta"></b></div>
+    <div class="ligne"><span>Total</span><b id="t-is-total"></b></div>
+    <div class="barres">
+      <div class="barre"><div class="haut"><span>IR</span><span id="b-ir-val"></span></div><div class="piste"><div class="rempli" id="b-ir"></div></div></div>
+      <div class="barre"><div class="haut"><span>IS</span><span id="b-is-val"></span></div><div class="piste"><div class="rempli or" id="b-is"></div></div></div>
+    </div>
+    <div class="total"><span class="etiquette" id="t-ecart-etiquette"></span><span class="montant" id="t-ecart"></span></div>
+    <p class="phrase" id="t-phrase"></p>
+    <p class="pied">Règles générales 2026. Simulation pédagogique, pas un conseil personnalisé.</p>
+  </aside>
+</div>
+<section class="cadre explications">
+  <div class="lecture">
+    <h2>Pourquoi cet écart</h2>
+    <ul id="pourquoi"></ul>
+  </div>
+  <h2>Année par année</h2>
+  <div class="tableau-defile">
+    <table id="tableau-sci">
+      <caption class="visually-hidden">Résultat et impôts de la SCI année par année, à l'IR et à l'IS</caption>
+      <thead><tr><th>Année</th><th>IR : résultat foncier</th><th>IR : impôt et prélèvements</th><th>IS : résultat</th><th>IS : impôt sur les sociétés</th><th>IS : impôt sur les sommes versées</th></tr></thead>
+      <tbody></tbody>
+      <tfoot></tfoot>
+    </table>
+  </div>
+  <p class="petit">Un montant négatif côté IR est une économie d'impôt : le déficit foncier baisse l'impôt sur les autres revenus des associés.</p>
+  <div class="lecture">
+    <h2>Les règles utilisées (2026)</h2>
+    <ul>
+      <li><strong>SCI à l'IR</strong> : les loyers, moins les charges et les intérêts d'emprunt, sont imposés chez chaque associé à sa tranche d'imposition, plus 17,2 % de prélèvements sociaux.</li>
+      <li><strong>Déficit foncier</strong> : la part qui vient des charges (hors intérêts) baisse le revenu global jusqu'à 10 700 € par foyer et par an ; le reste se reporte sur les loyers des 10 années suivantes.</li>
+      <li id="bloc-revente"><strong>Revente à l'IR</strong> : la plus-value est taxée à 19 % d'impôt et 17,2 % de prélèvements sociaux, avec un abattement chaque année à partir de la 6e (plus d'impôt après 22 ans, plus de prélèvements après 30 ans) et une surtaxe au-delà de 50 000 € de plus-value par associé. Les frais d'achat (réels ou forfait de 7,5 %) et un forfait travaux de 15 % après 5 ans s'ajoutent au prix d'achat.</li>
+      <li><strong>SCI à l'IS</strong> : la société paie 15 % jusqu'à 42 500 € de bénéfice, 25 % au-delà. Elle déduit les frais d'achat la 1re année et amortit le bâtiment (hors terrain). Un déficit se reporte sur les bénéfices suivants.</li>
+      <li><strong>Revente à l'IS</strong> : la plus-value se calcule sur le prix d'achat diminué des amortissements déjà déduits, puis elle est imposée à l'IS. Ici, tout le bénéfice est versé aux associés l'année de la vente.</li>
+      <li><strong>Sommes versées aux associés</strong> (dividendes) : 31,4 % (12,8 % d'impôt et 18,6 % de prélèvements sociaux).</li>
+    </ul>
+    <h2>Ce que la simulation laisse de côté</h2>
+    <ul>
+      <li>Les loyers et les charges restent fixes : pas de hausse, pas de mois sans locataire, pas de gros travaux.</li>
+      <li>À l'IS, les associés peuvent aussi récupérer sans impôt l'argent qu'ils ont prêté à la SCI (compte courant) : le simulateur traite toutes les sommes versées comme des dividendes.</li>
+      <li>Le taux réduit de 15 % suppose un capital entièrement versé et détenu à 75 % au moins par des personnes physiques.</li>
+      <li>La CSG déductible, la CFE, les frais de revente, l'IFI, la donation et la succession des parts.</li>
+      <li>Le passage à l'IS se décide une fois : on peut encore y renoncer pendant les 5 premières années, ensuite il devient définitif.</li>
+    </ul>
+    <div class="avertissement">
+      <p>Ce simulateur applique des règles générales à tes chiffres. Il ne connaît pas toute ta situation (autres revenus, famille, projets). Pour une décision, un professionnel (expert-comptable, avocat fiscaliste, notaire) peut étudier ton cas.</p>
+    </div>
+  </div>
+</section>
+<section class="inscription" aria-labelledby="titre-suivre">
+  <div class="cadre">
+    <div>
+      <h2 id="titre-suivre">Une vidéo chaque jour, de nouveaux outils au fil des vidéos</h2>
+      <p class="promesse">Suis Grain de Sou pour découvrir ce qui se cache derrière ton argent, et les prochains calculateurs dès leur sortie.</p>
+    </div>
+    <nav class="liens-reseaux" aria-label="Grain de Sou sur les réseaux"><a href="https://www.youtube.com/@graindesou" rel="noopener">YouTube</a><a href="https://www.instagram.com/graindesou" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@graindesou" rel="noopener">TikTok</a><a href="https://www.facebook.com/profile.php?id=1434997603028314" rel="noopener">Facebook</a></nav>
+  </div>
+</section>
+</main>
+<footer class="pied-page">
+  <div class="cadre">
+    <div>
+      <p><strong>Grain de Sou</strong>, ce qui se cache derrière ton argent.<br>Contenu pédagogique, pas un conseil financier personnalisé.</p>
+      <nav aria-label="Réseaux"><a href="https://www.youtube.com/@graindesou" rel="noopener">YouTube</a> <a href="https://www.instagram.com/graindesou" rel="noopener">Instagram</a> <a href="https://www.tiktok.com/@graindesou" rel="noopener">TikTok</a> <a href="https://www.facebook.com/profile.php?id=1434997603028314" rel="noopener">Facebook</a></nav>
+    </div>
+    <nav aria-label="Informations">
+      <a href="../mentions-legales/">Mentions légales</a>
+      <a href="../confidentialite/">Confidentialité</a>
+      <a href="mailto:graindesou@studiominute.fr">Contact</a>
+    </nav>
+  </div>
+</footer>
+<script src="../assets/commun.js"></script>
+<script src="../assets/sci.js"></script>
+</body>
+</html>

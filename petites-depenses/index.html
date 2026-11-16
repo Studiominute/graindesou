@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le vrai prix de tes petites dépenses | Grain de Sou</title>
+<meta name="description" content="Un café par jour, un abonnement, un repas livré : calcule ce que ta petite dépense représente sur un mois, un an et dix ans.">
+<link rel="canonical" href="https://graindesou.studiominute.fr/petites-depenses/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Grain de Sou">
+<meta property="og:title" content="Le vrai prix de tes petites dépenses | Grain de Sou">
+<meta property="og:description" content="Un café par jour, un abonnement, un repas livré : calcule ce que ta petite dépense représente sur un mois, un an et dix ans.">
+<meta property="og:url" content="https://graindesou.studiominute.fr/petites-depenses/">
+<meta name="theme-color" content="#0B3D2E">
+<link rel="icon" href="../assets/sou.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/montserrat-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="entete">
+  <div class="cadre">
+    <a class="marque" href="../"><img src="../assets/sou.svg" alt="" width="38" height="38">Grain de Sou</a>
+    <nav class="nav" aria-label="Outils">
+      <a href="../petites-depenses/" aria-current="page">Petites dépenses</a>
+      <a href="../budget/">Budget 50/30/20</a>
+      <a href="../sci-ir-ou-is/">SCI IR ou IS</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="outil-haut"><div class="cadre">
+  <h1>Ta petite dépense, sur 10 ans</h1>
+  <p>Choisis une dépense qui revient souvent : le ticket te montre ce qu'elle pèse sur un mois, un an, dix ans… et ce que ça donnerait mis de côté.</p>
+</div></section>
+<div class="cadre atelier">
+  <form class="saisie" id="form-depenses">
+    <div class="raccourcis" aria-label="Exemples">
+      <button type="button" data-quoi="Café à emporter" data-montant="2,50" data-frequence="jour" aria-pressed="true">☕ Café 2,50 € par jour</button>
+      <button type="button" data-quoi="Abonnement streaming" data-montant="13,99" data-frequence="mois" aria-pressed="false">📺 Streaming 13,99 € par mois</button>
+      <button type="button" data-quoi="Repas livré" data-montant="18" data-frequence="semaine" aria-pressed="false">🛵 Repas livré 18 € par semaine</button>
+      <button type="button" data-quoi="Snack au distributeur" data-montant="1,80" data-frequence="jour" aria-pressed="false">🍫 Snack 1,80 € par jour</button>
+      <button type="button" data-quoi="Paquet de cigarettes" data-montant="13" data-frequence="jour" aria-pressed="false">🚬 Paquet 13 € par jour</button>
+    </div>
+    <fieldset>
+      <legend>Ta dépense</legend>
+      <div class="champs">
+        <div class="champ"><label for="quoi">C'est quoi ?</label><input class="seul" id="quoi" type="text" value="Café à emporter" maxlength="40"></div>
+        <div class="champ"><label for="montant">Montant</label><div class="unite"><input id="montant" inputmode="decimal" value="2,50"><span>€</span></div></div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Elle revient…</legend>
+      <div class="choix">
+        <label><input type="radio" name="frequence" value="jour" checked> chaque jour</label>
+        <label><input type="radio" name="frequence" value="semaine"> chaque semaine</label>
+        <label><input type="radio" name="frequence" value="mois"> chaque mois</label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Sur combien de temps ?</legend>
+      <div class="champs">
+        <div class="champ"><label for="annees">Durée</label><div class="unite"><input id="annees" inputmode="numeric" value="10"><span>ans</span></div></div>
+        <div class="champ"><label for="taux">Si c'était mis de côté à</label><div class="unite"><input id="taux" inputmode="decimal" value="1,7"><span>% par an</span></div>
+          <span class="aide">Livret A : 1,7 % par an depuis le 1er août 2026. Mets 0 pour compter seulement la dépense.</span></div>
+      </div>
+    </fieldset>
+  </form>
+
+  <aside class="ticket" aria-live="polite" aria-label="Résultat">
+    <div class="ticket-tete"><strong>TICKET DE TA DÉPENSE</strong><span id="t-quoi"></span></div>
+    <div class="ligne"><span>Par mois</span><b id="t-mois"></b></div>
+    <div class="ligne"><span>Par an</span><b id="t-an"></b></div>
+    <div class="ligne"><span id="t-annees-label">Sur 10 ans</span><b id="t-total"></b></div>
+    <div class="total">
+      <span class="etiquette" id="t-place-label"></span>
+      <span class="montant" id="t-place"></span>
+      <span class="petit" id="t-interets"></span>
+    </div>
+    <p class="phrase" id="t-phrase"></p>
+    <p class="pied">Merci de ta visite 💰 Grain de Sou</p>
+  </aside>
+</div>
+<section class="cadre explications"><div class="lecture">
+  <h2>Comment c'est calculé</h2>
+  <ul>
+    <li>Une dépense par jour compte 365 fois par an, par semaine 52 fois, par mois 12 fois.</li>
+    <li>« Mis de côté » : chaque mois, tu verses l'équivalent de ta dépense sur un placement qui rapporte le taux indiqué, et les intérêts produisent à leur tour des intérêts. C'est une estimation : le Livret A calcule ses intérêts par quinzaine et son taux change deux fois par an.</li>
+    <li>Le prix de ta dépense reste le même pendant toute la durée : avec l'inflation, le vrai total serait un peu plus élevé.</li>
+  </ul>
+  <p>L'idée n'est pas de tout supprimer : c'est de choisir en connaissant le vrai prix. Une dépense qui te fait plaisir chaque jour vaut peut-être ses 900 € par an. Une autre que tu fais par habitude, peut-être moins.</p>
+</div></section>
+<section class="inscription" aria-labelledby="titre-suivre">
+  <div class="cadre">
+    <div>
+      <h2 id="titre-suivre">Une vidéo chaque jour, de nouveaux outils au fil des vidéos</h2>
+      <p class="promesse">Suis Grain de Sou pour découvrir ce qui se cache derrière ton argent, et les prochains calculateurs dès leur sortie.</p>
+    </div>
+    <nav class="liens-reseaux" aria-label="Grain de Sou sur les réseaux"><a href="https://www.youtube.com/@graindesou" rel="noopener">YouTube</a><a href="https://www.instagram.com/graindesou" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@graindesou" rel="noopener">TikTok</a><a href="https://www.facebook.com/profile.php?id=1434997603028314" rel="noopener">Facebook</a></nav>
+  </div>
+</section>
+</main>
+<footer class="pied-page">
+  <div class="cadre">
+    <div>
+      <p><strong>Grain de Sou</strong>, ce qui se cache derrière ton argent.<br>Contenu pédagogique, pas un conseil financier personnalisé.</p>
+      <nav aria-label="Réseaux"><a href="https://www.youtube.com/@graindesou" rel="noopener">YouTube</a> <a href="https://www.instagram.com/graindesou" rel="noopener">Instagram</a> <a href="https://www.tiktok.com/@graindesou" rel="noopener">TikTok</a> <a href="https://www.facebook.com/profile.php?id=1434997603028314" rel="noopener">Facebook</a></nav>
+    </div>
+    <nav aria-label="Informations">
+      <a href="../mentions-legales/">Mentions légales</a>
+      <a href="../confidentialite/">Confidentialité</a>
+      <a href="mailto:graindesou@studiominute.fr">Contact</a>
+    </nav>
+  </div>
+</footer>
+<script src="../assets/commun.js"></script>
+<script src="../assets/petites-depenses.js"></script>
+</body>
+</html>
