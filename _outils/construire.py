@@ -1,5 +1,5 @@
 """Fabrique les pages du site Grain de Sou à partir de morceaux communs.
-Lancer : python3 construire.py  (écrit dans le dossier site/)"""
+Lancer : python3 _outils/construire.py  (écrit à la racine du dépôt)"""
 import re
 from pathlib import Path
 
@@ -17,10 +17,11 @@ RESEAUX = [
     ("Facebook", "https://www.facebook.com/profile.php?id=1434997603028314"),
 ]
 
-NAV = [
-    ("petites-depenses/", "Petites dépenses"),
-    ("budget/", "Budget 50/30/20"),
-    ("sci-ir-ou-is/", "SCI IR ou IS"),
+# Les calculateurs : ajouter une ligne ici suffit pour qu'un nouvel outil apparaisse dans le menu déroulant.
+OUTILS = [
+    ("petites-depenses/", "Petites dépenses", "Le vrai prix d'une dépense qui revient"),
+    ("budget/", "Budget 50/30/20", "La part de ton salaire pour chaque poste"),
+    ("sci-ir-ou-is/", "SCI à l'IR ou à l'IS", "Les impôts des deux options, revente comprise"),
 ]
 
 
@@ -39,9 +40,10 @@ def tete(titre, description, chemin, racine):
 <meta property="og:title" content="{titre}">
 <meta property="og:description" content="{description}">
 <meta property="og:url" content="{DOMAINE}/{chemin}">
-<meta name="theme-color" content="#0B3D2E">
+<meta name="theme-color" content="#0B2554">
 <link rel="icon" href="{racine}assets/sou.svg" type="image/svg+xml">
 <link rel="preload" href="{racine}assets/fonts/montserrat-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{racine}assets/fonts/caveat-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{racine}assets/style.css">
 </head>
 <body>
@@ -49,14 +51,24 @@ def tete(titre, description, chemin, racine):
 
 
 def entete(chemin, racine):
-    liens = "\n".join(
-        f'      <a href="{racine}{c}"{" aria-current=\"page\"" if c == chemin else ""}>{t}</a>' for c, t in NAV
+    dans_outils = any(c == chemin for c, _, _ in OUTILS)
+    actuel = lambda c: ' aria-current="page"' if c == chemin else ""
+    liste = "\n".join(
+        f'          <li><a href="{racine}{c}"{actuel(c)}><strong>{t}</strong><span>{d}</span></a></li>' for c, t, d in OUTILS
     )
     return f"""<header class="entete">
-  <div class="cadre">
-    <a class="marque" href="{racine}"><img src="{racine}assets/sou.svg" alt="" width="38" height="38">Grain de Sou</a>
-    <nav class="nav" aria-label="Outils">
-{liens}
+  <div class="cadre barre">
+    <a class="marque" href="{racine}"><img src="{racine}assets/sou.svg" alt="" width="40" height="40">Grain de Sou</a>
+    <button class="menu-bouton" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    <nav class="menu" id="menu" aria-label="Menu principal">
+      <a class="onglet" href="{racine}"{actuel("")}>Accueil</a>
+      <details class="deroulant">
+        <summary class="onglet{" actif" if dans_outils else ""}">Calculateurs</summary>
+        <ul>
+{liste}
+        </ul>
+      </details>
+      <a class="onglet" href="{racine}formations/"{actuel("formations/")}>Formations <span class="badge">bientôt</span></a>
     </nav>
   </div>
 </header>
@@ -87,7 +99,7 @@ def inscription(racine):
 
 
 def suivre():
-    liens = "".join(f'<a href="{u}" rel="noopener">{n}</a>' for n, u in RESEAUX)
+    liens = "".join(f'<a class="bouton secondaire" href="{u}" rel="noopener">{n}</a>' for n, u in RESEAUX)
     return f"""<section class="inscription" aria-labelledby="titre-suivre">
   <div class="cadre">
     <div>
@@ -158,24 +170,28 @@ page("", "Grain de Sou : les calculateurs gratuits",
       <h1>Ce qui se cache derrière ton argent</h1>
       <p>Trois calculateurs gratuits pour y voir clair en deux minutes. Tu entres tes chiffres, le ticket se calcule tout seul.</p>
     </div>
-    {SOU}
+    <div class="sou-zone">{SOU}<p class="note-main">Salut, moi c'est Sou !</p></div>
   </div>
 </section>
 <div class="cadre outils">
   <a class="outil-ligne" href="petites-depenses/">
     <div><h2>Ta petite dépense, sur 10 ans</h2><p>Café, abonnement, repas livré : découvre ce que ça représente vraiment.</p></div>
     <div class="apercu"><small>4 € par jour</small><b>14 600 €</b><small>en 10 ans</small></div>
-    <span class="ouvrir">Calculer ma dépense</span>
+    <span class="bouton petit-bouton">Calculer ma dépense</span>
   </a>
   <a class="outil-ligne" href="budget/">
     <div><h2>Ton budget 50/30/20</h2><p>La part de ton salaire pour l'essentiel, pour les envies et pour l'épargne.</p></div>
     <div class="apercu"><small>2 000 € par mois</small><b>400 €</b><small>d'épargne par mois</small></div>
-    <span class="ouvrir">Faire mon budget</span>
+    <span class="bouton petit-bouton">Faire mon budget</span>
   </a>
   <a class="outil-ligne" href="sci-ir-ou-is/">
     <div><h2>SCI à l'IR ou à l'IS ?</h2><p>Les impôts des deux options sur toute la durée du projet, revente comprise.</p></div>
     <div class="apercu"><small>Bien à 200 000 €, 15 ans</small><b>{{ECART_SCI}}</b><small>{{GAGNANT_SCI}}</small></div>
-    <span class="ouvrir">Comparer les deux options</span>
+    <span class="bouton petit-bouton">Comparer les deux options</span>
+  </a>
+  <a class="outil-ligne bientot" href="formations/">
+    <div><h2>Les formations arrivent</h2><p>Apprendre la comptabilité simplement, pour gérer ses comptes ou réussir ses examens.</p></div>
+    <span class="bouton petit-bouton secondaire">Découvrir le programme</span>
   </a>
 </div>
 <section class="cadre" style="padding-top:2.5rem"><div class="lecture">
@@ -237,7 +253,7 @@ page("petites-depenses/", "Le vrai prix de tes petites dépenses | Grain de Sou"
       <span class="petit" id="t-interets"></span>
     </div>
     <p class="phrase" id="t-phrase"></p>
-    <p class="pied">Merci de ta visite 💰 Grain de Sou</p>
+    <p class="pied main">Merci de ta visite ! Sou</p>
   </aside>
 </div>
 <section class="cadre explications"><div class="lecture">
@@ -313,7 +329,7 @@ page("budget/", "Ton budget 50/30/20 | Grain de Sou",
       <div class="total"><span class="etiquette" id="t-reste-etiquette"></span><span class="montant" id="t-reste"></span></div>
       <ul class="phrase" id="conseils"></ul>
     </div>
-    <p class="pied">Merci de ta visite 💰 Grain de Sou</p>
+    <p class="pied main">Merci de ta visite ! Sou</p>
   </aside>
 </div>
 <section class="cadre explications"><div class="lecture">
@@ -463,6 +479,31 @@ if INSCRIPTION_OUVERTE: page("inscription-confirmee/", "Inscription confirmée |
   </ul>
 </div></div>
 """, avec_inscription=False)
+
+# ---------------------------------------------------------------- Formations (teasing)
+page("formations/", "Les formations Grain de Sou arrivent bientôt", "Bientôt sur Grain de Sou : des formations pour apprendre la comptabilité simplement, pour les indépendants, les propriétaires de SCI et les étudiants.",
+     """<section class="outil-haut"><div class="cadre">
+  <p class="note-main clair">En préparation…</p>
+  <h1>Les formations Grain de Sou arrivent bientôt</h1>
+  <p>Apprendre la comptabilité simplement : des explications claires, des exemples chiffrés et des outils prêts à servir.</p>
+</div></section>
+<div class="cadre formations">
+  <article class="carte-formation">
+    <span class="pastille">Bientôt</span>
+    <h2>Pour les indépendants et les propriétaires de SCI</h2>
+    <p>Tenir ses comptes, comprendre ses impôts et remplir ses déclarations (dont la 2072 d'une SCI) avec méthode et sérénité.</p>
+  </article>
+  <article class="carte-formation">
+    <span class="pastille">Bientôt</span>
+    <h2>Pour les étudiants en DCG et DSCG</h2>
+    <p>Méthodes, fiches et cas pratiques pour réviser efficacement et aborder chaque épreuve avec confiance.</p>
+  </article>
+</div>
+<section class="cadre explications"><div class="lecture">
+  <h2>Ton avis compte</h2>
+  <p>Dis en commentaire, sous une vidéo de Grain de Sou, ce que tu aimerais apprendre en premier : les formations se construisent avec tes questions.</p>
+</div></section>
+""")
 
 # ---------------------------------------------------------------- Pages légales, version anonyme (site non professionnel)
 if not INSCRIPTION_OUVERTE:

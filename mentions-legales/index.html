@@ -12,19 +12,28 @@
 <meta property="og:title" content="Mentions légales | Grain de Sou">
 <meta property="og:description" content="Mentions légales du site Grain de Sou.">
 <meta property="og:url" content="https://graindesou.studiominute.fr/mentions-legales/">
-<meta name="theme-color" content="#0B3D2E">
+<meta name="theme-color" content="#0B2554">
 <link rel="icon" href="../assets/sou.svg" type="image/svg+xml">
 <link rel="preload" href="../assets/fonts/montserrat-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/caveat-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
 <header class="entete">
-  <div class="cadre">
-    <a class="marque" href="../"><img src="../assets/sou.svg" alt="" width="38" height="38">Grain de Sou</a>
-    <nav class="nav" aria-label="Outils">
-      <a href="../petites-depenses/">Petites dépenses</a>
-      <a href="../budget/">Budget 50/30/20</a>
-      <a href="../sci-ir-ou-is/">SCI IR ou IS</a>
+  <div class="cadre barre">
+    <a class="marque" href="../"><img src="../assets/sou.svg" alt="" width="40" height="40">Grain de Sou</a>
+    <button class="menu-bouton" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    <nav class="menu" id="menu" aria-label="Menu principal">
+      <a class="onglet" href="../">Accueil</a>
+      <details class="deroulant">
+        <summary class="onglet">Calculateurs</summary>
+        <ul>
+          <li><a href="../petites-depenses/"><strong>Petites dépenses</strong><span>Le vrai prix d'une dépense qui revient</span></a></li>
+          <li><a href="../budget/"><strong>Budget 50/30/20</strong><span>La part de ton salaire pour chaque poste</span></a></li>
+          <li><a href="../sci-ir-ou-is/"><strong>SCI à l'IR ou à l'IS</strong><span>Les impôts des deux options, revente comprise</span></a></li>
+        </ul>
+      </details>
+      <a class="onglet" href="../formations/">Formations <span class="badge">bientôt</span></a>
     </nav>
   </div>
 </header>

@@ -106,3 +106,23 @@ document.querySelectorAll(".form-inscription").forEach(form => {
     }
   });
 });
+
+/* ---------- Menu : bouton sur téléphone, liste déroulante des calculateurs ---------- */
+(() => {
+  const bouton = document.querySelector(".menu-bouton");
+  const menu = document.getElementById("menu");
+  const deroulant = document.querySelector(".deroulant");
+  if (bouton && menu) {
+    bouton.addEventListener("click", () => {
+      const ouvert = menu.classList.toggle("ouvert");
+      bouton.setAttribute("aria-expanded", String(ouvert));
+      bouton.textContent = ouvert ? "Fermer" : "Menu";
+    });
+  }
+  if (deroulant) {
+    document.addEventListener("click", e => { if (!deroulant.contains(e.target)) deroulant.open = false; });
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape" && deroulant.open) { deroulant.open = false; deroulant.querySelector("summary").focus(); }
+    });
+  }
+})();

@@ -12,19 +12,28 @@
 <meta property="og:title" content="Ton budget 50/30/20 | Grain de Sou">
 <meta property="og:description" content="Calcule ton budget avec la méthode 50/30/20 : la part de ton salaire pour l'essentiel, les envies et l'épargne, puis compare avec tes vraies dépenses.">
 <meta property="og:url" content="https://graindesou.studiominute.fr/budget/">
-<meta name="theme-color" content="#0B3D2E">
+<meta name="theme-color" content="#0B2554">
 <link rel="icon" href="../assets/sou.svg" type="image/svg+xml">
 <link rel="preload" href="../assets/fonts/montserrat-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/caveat-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
 <header class="entete">
-  <div class="cadre">
-    <a class="marque" href="../"><img src="../assets/sou.svg" alt="" width="38" height="38">Grain de Sou</a>
-    <nav class="nav" aria-label="Outils">
-      <a href="../petites-depenses/">Petites dépenses</a>
-      <a href="../budget/" aria-current="page">Budget 50/30/20</a>
-      <a href="../sci-ir-ou-is/">SCI IR ou IS</a>
+  <div class="cadre barre">
+    <a class="marque" href="../"><img src="../assets/sou.svg" alt="" width="40" height="40">Grain de Sou</a>
+    <button class="menu-bouton" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    <nav class="menu" id="menu" aria-label="Menu principal">
+      <a class="onglet" href="../">Accueil</a>
+      <details class="deroulant">
+        <summary class="onglet actif">Calculateurs</summary>
+        <ul>
+          <li><a href="../petites-depenses/"><strong>Petites dépenses</strong><span>Le vrai prix d'une dépense qui revient</span></a></li>
+          <li><a href="../budget/" aria-current="page"><strong>Budget 50/30/20</strong><span>La part de ton salaire pour chaque poste</span></a></li>
+          <li><a href="../sci-ir-ou-is/"><strong>SCI à l'IR ou à l'IS</strong><span>Les impôts des deux options, revente comprise</span></a></li>
+        </ul>
+      </details>
+      <a class="onglet" href="../formations/">Formations <span class="badge">bientôt</span></a>
     </nav>
   </div>
 </header>
@@ -87,7 +96,7 @@
       <div class="total"><span class="etiquette" id="t-reste-etiquette"></span><span class="montant" id="t-reste"></span></div>
       <ul class="phrase" id="conseils"></ul>
     </div>
-    <p class="pied">Merci de ta visite 💰 Grain de Sou</p>
+    <p class="pied main">Merci de ta visite ! Sou</p>
   </aside>
 </div>
 <section class="cadre explications"><div class="lecture">
@@ -106,7 +115,7 @@
       <h2 id="titre-suivre">Une vidéo chaque jour, de nouveaux outils au fil des vidéos</h2>
       <p class="promesse">Suis Grain de Sou pour découvrir ce qui se cache derrière ton argent, et les prochains calculateurs dès leur sortie.</p>
     </div>
-    <nav class="liens-reseaux" aria-label="Grain de Sou sur les réseaux"><a href="https://www.youtube.com/@graindesou" rel="noopener">YouTube</a><a href="https://www.instagram.com/graindesou" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@graindesou" rel="noopener">TikTok</a><a href="https://www.facebook.com/profile.php?id=1434997603028314" rel="noopener">Facebook</a></nav>
+    <nav class="liens-reseaux" aria-label="Grain de Sou sur les réseaux"><a class="bouton secondaire" href="https://www.youtube.com/@graindesou" rel="noopener">YouTube</a><a class="bouton secondaire" href="https://www.instagram.com/graindesou" rel="noopener">Instagram</a><a class="bouton secondaire" href="https://www.tiktok.com/@graindesou" rel="noopener">TikTok</a><a class="bouton secondaire" href="https://www.facebook.com/profile.php?id=1434997603028314" rel="noopener">Facebook</a></nav>
   </div>
 </section>
 </main>
